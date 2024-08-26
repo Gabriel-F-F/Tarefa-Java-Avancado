@@ -41,14 +41,19 @@ public class TarefaController {
 	}
 	
 	@PutMapping
-	public void putTarefa(@PathVariable("/id") Long id, @RequestBody Tarefa tarefaRequest) {
-		Optional<Tarefa> tarefaUpdate = listaTarefa.stream().filter(tarefa -> tarefa.getId().equals(id)).findFirst();
+	public Tarefa putTarefa(@RequestBody Tarefa tarefaRequest) {
+		Optional<Tarefa> tarefaUpdate = listaTarefa.stream().filter(tarefa -> tarefa.getId().equals(tarefaRequest.getId())).findFirst();
 		
 		if(tarefaUpdate.isPresent()) {
 			Tarefa tarefa = tarefaUpdate.get();
 			tarefa.setTitulo(tarefaRequest.getTitulo());
 			tarefa.setDescricao(tarefaRequest.getDescricao());
 			tarefa.setCompleta(tarefaRequest.getCompleta());
+			return tarefa;
+		}
+		else {
+			System.out.println("teste put");
+			return null;
 		}
 	}
 }
