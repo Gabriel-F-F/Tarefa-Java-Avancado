@@ -40,15 +40,15 @@ public class TarefaController {
 		listaTarefa.add(tarefaRequest);
 	}
 	
-	@PutMapping("/{id}")
-	public void putTarefa(@PathVariable("id") Long id, @RequestBody Tarefa tarefaRequest) {
+	@PutMapping
+	public void putTarefa(@PathVariable("/id") Long id, @RequestBody Tarefa tarefaRequest) {
 		Optional<Tarefa> tarefaUpdate = listaTarefa.stream().filter(tarefa -> tarefa.getId().equals(id)).findFirst();
 		
 		if(tarefaUpdate.isPresent()) {
 			Tarefa tarefa = tarefaUpdate.get();
-			tarefa.setTitulo(tarefaUpdate.getTitulo());
-			tarefa.setTitulo(tarefaUpdate.getDescricao());
-			tarefa.setTitulo(tarefaUpdate.getCompleta());
+			tarefa.setTitulo(tarefaRequest.getTitulo());
+			tarefa.setDescricao(tarefaRequest.getDescricao());
+			tarefa.setCompleta(tarefaRequest.getCompleta());
 		}
 	}
 }
@@ -60,5 +60,5 @@ class Tarefa {
 	private Long id;
 	private String titulo;
 	private String descricao;
-	private boolean completa;
+	private Boolean completa;
 }
