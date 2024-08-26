@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,7 +53,22 @@ public class TarefaController {
 			return tarefa;
 		}
 		else {
-			System.out.println("teste put");
+			System.out.println("erro ao dar o update");
+			return null;
+		}
+	}
+	
+	@DeleteMapping("/{id}")
+	public Tarefa deleteTarefa(@PathVariable("id") Long id) {
+		Optional<Tarefa> tarefaDelete = listaTarefa.stream().filter(tarefa -> tarefa.getId().equals(id)).findFirst();
+	
+		if (tarefaDelete.isPresent()) {
+			Tarefa tarefa = tarefaDelete.get();
+			listaTarefa.remove(tarefa);
+			return tarefa;
+		}
+		else {
+			System.out.println("erro ao dar o delete");
 			return null;
 		}
 	}
