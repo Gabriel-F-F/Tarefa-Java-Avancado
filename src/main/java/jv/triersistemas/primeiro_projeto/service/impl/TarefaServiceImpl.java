@@ -3,7 +3,6 @@ package jv.triersistemas.primeiro_projeto.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Service;
 import jv.triersistemas.primeiro_projeto.dto.TarefaDto;
 import jv.triersistemas.primeiro_projeto.service.TarefaService;
@@ -12,7 +11,7 @@ import jv.triersistemas.primeiro_projeto.service.TarefaService;
 public class TarefaServiceImpl implements TarefaService {
 
 	private static List<TarefaDto> listaTarefa = new ArrayList<>();
-	private static AtomicLong contador = new AtomicLong();
+	private static Long contador = 1L;
 
 	@Override
 	public List<TarefaDto> getTarefa() {
@@ -26,7 +25,7 @@ public class TarefaServiceImpl implements TarefaService {
 
 	@Override
 	public TarefaDto postTarefa(TarefaDto tarefaRequest) {
-		tarefaRequest.setId(contador.incrementAndGet());
+		tarefaRequest.setId(contador++);
 		listaTarefa.add(tarefaRequest);
 		return tarefaRequest;
 	}
