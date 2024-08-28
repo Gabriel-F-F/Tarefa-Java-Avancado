@@ -29,4 +29,7 @@ public class TarefaEntity {
 		this.descricao = dto.getDescricao();
 		this.completa = dto.getCompleta();
 	}
+
+	public void putConstructor(String titulo, String descricao, Boolean completa) {
+	}
 }

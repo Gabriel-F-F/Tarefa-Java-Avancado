@@ -1,6 +1,5 @@
 package jv.triersistemas.primeiro_projeto.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,8 +12,6 @@ import jv.triersistemas.primeiro_projeto.service.TarefaService;
 
 @Service
 public class TarefaServiceImpl implements TarefaService {
-
-	List<TarefaDto> listaTarefa = new ArrayList<>();
 	
 	@Autowired
 	private TarefaRepository tarefaRepository;
@@ -39,14 +36,12 @@ public class TarefaServiceImpl implements TarefaService {
 
 	@Override
 	public TarefaDto putTarefa(Long id, TarefaDto tarefaRequest) {
-		Optional<TarefaDto> tarefaUpdate = listaTarefa.stream().filter(tarefa -> tarefa.getId().equals(id)).findFirst();
+		Optional<TarefaEntity> tarefaUpdate = tarefaRepository.findById(id);
 
 		if (tarefaUpdate.isPresent()) {
-			TarefaDto tarefa = tarefaUpdate.get();
-			tarefa.setTitulo(tarefaRequest.getTitulo());
-			tarefa.setDescricao(tarefaRequest.getDescricao());
-			tarefa.setCompleta(tarefaRequest.getCompleta());
-			return tarefa;
+			TarefaEntity tarefa = tarefaUpdate.get();
+			tarefa.putConstructor(tarefaRequest.getTitulo(), tarefaRequest.getDescricao(), tarefaRequest.getCompleta());
+			tarefaRepository.save(tarefa);
 		}
 		return null;
 	}
