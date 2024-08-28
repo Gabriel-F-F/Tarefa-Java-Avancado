@@ -1,5 +1,6 @@
 package jv.triersistemas.primeiro_projeto.dto;
 
+import jv.triersistemas.primeiro_projeto.entity.TarefaEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,4 +13,11 @@ public class TarefaDto {
 		private String titulo;
 		private String descricao;
 		private Boolean completa;
+		
+		public TarefaDto(TarefaEntity entity) {
+			this.id = entity.getId();
+			this.titulo = entity.getTitulo();
+			this.descricao = entity.getDescricao();
+			this.completa = entity.isCompleta();
+		}
 }

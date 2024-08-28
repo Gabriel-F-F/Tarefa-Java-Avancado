@@ -3,13 +3,20 @@ package jv.triersistemas.primeiro_projeto.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import jv.triersistemas.primeiro_projeto.dto.TarefaDto;
+import jv.triersistemas.primeiro_projeto.entity.TarefaEntity;
+import jv.triersistemas.primeiro_projeto.repository.TarefaRepository;
 import jv.triersistemas.primeiro_projeto.service.TarefaService;
 
 @Service
 public class TarefaServiceImpl implements TarefaService {
 
+	@Autowired
+	private TarefaRepository tarefaRepository;
+	
 	private static List<TarefaDto> listaTarefa = new ArrayList<>();
 	private static Long contador = 1L;
 
@@ -25,9 +32,12 @@ public class TarefaServiceImpl implements TarefaService {
 
 	@Override
 	public TarefaDto postTarefa(TarefaDto tarefaRequest) {
-		tarefaRequest.setId(contador++);
-		listaTarefa.add(tarefaRequest);
-		return tarefaRequest;
+		TarefaEntity entidadePersistida = tarefaRepository.save(new TarefaEntity(tarefaRequest));
+		return new TarefaDto(entidadePersistida);
+		
+//		tarefaRequest.setId(contador++);
+//		listaTarefa.add(tarefaRequest);
+//		return tarefaRequest;
 	}
 
 	@Override
