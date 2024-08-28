@@ -14,30 +14,27 @@ import jv.triersistemas.primeiro_projeto.service.TarefaService;
 @Service
 public class TarefaServiceImpl implements TarefaService {
 
+	List<TarefaDto> listaTarefa = new ArrayList<>();
+	
 	@Autowired
 	private TarefaRepository tarefaRepository;
-	
-	private static List<TarefaDto> listaTarefa = new ArrayList<>();
-	private static Long contador = 1L;
 
 	@Override
 	public List<TarefaDto> getTarefa() {
-		return listaTarefa;
+		List<TarefaEntity> getTodasTarefa = tarefaRepository.findAll();
+		return getTodasTarefa.stream().map(TarefaDto::new).toList();
 	}
 
 	@Override
 	public Optional<TarefaDto> getTarefaPorId(Long id) {
-		return listaTarefa.stream().filter(tarefa -> tarefa.getId().equals(id)).findFirst();
+		Optional<TarefaEntity> getTarefaPorId = tarefaRepository.findById(id);
+		return getTarefaPorId.stream().map(TarefaDto::new).findFirst();
 	}
 
 	@Override
 	public TarefaDto postTarefa(TarefaDto tarefaRequest) {
 		TarefaEntity entidadePersistida = tarefaRepository.save(new TarefaEntity(tarefaRequest));
 		return new TarefaDto(entidadePersistida);
-		
-//		tarefaRequest.setId(contador++);
-//		listaTarefa.add(tarefaRequest);
-//		return tarefaRequest;
 	}
 
 	@Override
@@ -56,6 +53,6 @@ public class TarefaServiceImpl implements TarefaService {
 
 	@Override
 	public void deleteTarefa(Long id) {
-		listaTarefa.removeIf(tarefa -> tarefa.getId().equals(id));
+		tarefaRepository.deleteById(id);
 	}
 }
