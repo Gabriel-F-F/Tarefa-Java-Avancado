@@ -8,11 +8,13 @@ import jv.triersistemas.primeiro_projeto.dto.TarefaDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity (name = "tarefa")
 @Getter
+@Setter
 public class TarefaEntity {
 
 	@Id
@@ -28,8 +30,5 @@ public class TarefaEntity {
 		this.titulo = dto.getTitulo();
 		this.descricao = dto.getDescricao();
 		this.completa = dto.getCompleta();
-	}
-
-	public void putConstructor(String titulo, String descricao, Boolean completa) {
 	}
 }

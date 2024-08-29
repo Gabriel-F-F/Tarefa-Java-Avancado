@@ -40,8 +40,11 @@ public class TarefaServiceImpl implements TarefaService {
 
 		if (tarefaUpdate.isPresent()) {
 			TarefaEntity tarefa = tarefaUpdate.get();
-			tarefa.putConstructor(tarefaRequest.getTitulo(), tarefaRequest.getDescricao(), tarefaRequest.getCompleta());
+			tarefa.setTitulo(tarefaRequest.getTitulo());
+			tarefa.setDescricao(tarefaRequest.getDescricao());
+			tarefa.setCompleta(tarefaRequest.getCompleta());
 			tarefaRepository.save(tarefa);
+			return new TarefaDto(tarefa);
 		}
 		return null;
 	}
