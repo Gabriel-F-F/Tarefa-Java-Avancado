@@ -31,11 +31,9 @@ public class TarefaServiceImpl implements TarefaService {
 	}
 
 	@Override
-	public TarefaDto postTarefa(TarefaDto tarefaRequest, Long idCategoria) {
-		tarefaRepository.findById(idCategoria);
-		Optional<TarefaEntity> entityCategoria = tarefaRepository.findById(idCategoria);
-		CategoriaEntity categoriaMapeada = entityCategoria.stream().map(CategoriaEntity::new);
-		TarefaEntity tarefaAdicionada = tarefaRepository.save(new TarefaEntity(tarefaRequest, categoriaMapeada));
+	public TarefaDto postTarefa(TarefaDto tarefaRequest, CategoriaEntity entityCategoria) {
+		CategoriaEntity categoria = tarefaRepository.findById(idCategoria);
+		TarefaEntity tarefaAdicionada = tarefaRepository.save(new TarefaEntity(tarefaRequest, categoria));
 		return new TarefaDto(tarefaAdicionada);
 	}
 
