@@ -24,7 +24,7 @@ public class TarefaController {
 
 	@GetMapping
 	public List<TarefaDto> getTarefas() {
-		return tarefaService.getTarefa();
+		return tarefaService.getTarefas();
 	}
 
 	@GetMapping("/{id}")

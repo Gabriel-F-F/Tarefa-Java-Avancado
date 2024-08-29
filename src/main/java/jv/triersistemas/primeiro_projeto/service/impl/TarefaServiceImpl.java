@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import jv.triersistemas.primeiro_projeto.dto.TarefaDto;
 import jv.triersistemas.primeiro_projeto.entity.TarefaEntity;
 import jv.triersistemas.primeiro_projeto.repository.TarefaRepository;
@@ -17,9 +18,9 @@ public class TarefaServiceImpl implements TarefaService {
 	private TarefaRepository tarefaRepository;
 
 	@Override
-	public List<TarefaDto> getTarefa() {
-		List<TarefaEntity> getTodasTarefa = tarefaRepository.findAll();
-		return getTodasTarefa.stream().map(TarefaDto::new).toList();
+	public List<TarefaDto> getTarefas() {
+		List<TarefaEntity> getTarefas = tarefaRepository.findAll();
+		return getTarefas.stream().map(TarefaDto::new).toList();
 	}
 
 	@Override
@@ -30,8 +31,8 @@ public class TarefaServiceImpl implements TarefaService {
 
 	@Override
 	public TarefaDto postTarefa(TarefaDto tarefaRequest) {
-		TarefaEntity entidadePersistida = tarefaRepository.save(new TarefaEntity(tarefaRequest));
-		return new TarefaDto(entidadePersistida);
+		TarefaEntity tarefaAdicionada = tarefaRepository.save(new TarefaEntity(tarefaRequest));
+		return new TarefaDto(tarefaAdicionada);
 	}
 
 	@Override

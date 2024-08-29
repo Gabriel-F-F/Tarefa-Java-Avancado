@@ -7,7 +7,7 @@ import jv.triersistemas.primeiro_projeto.dto.TarefaDto;
 
 public interface TarefaService {
 	
-	List<TarefaDto> getTarefa();
+	List<TarefaDto> getTarefas();
 	
 	Optional<TarefaDto> getTarefaPorId(Long id);
 	
