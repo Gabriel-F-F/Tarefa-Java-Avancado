@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import jv.triersistemas.primeiro_projeto.dto.TarefaDto;
+import jv.triersistemas.primeiro_projeto.entity.CategoriaEntity;
 import jv.triersistemas.primeiro_projeto.service.TarefaService;
 
 @RestController
@@ -32,15 +32,15 @@ public class TarefaController {
 		return tarefaService.getTarefaPorId(id);
 	}
 
-	@PostMapping
-	public void postTarefa(@RequestBody TarefaDto tarefaRequest) {
-		tarefaService.postTarefa(tarefaRequest);
+	@PostMapping("/{idCategoria}")
+	public void postTarefa(@RequestBody TarefaDto tarefaRequest, @PathVariable CategoriaEntity idCategoria) {
+		tarefaService.postTarefa(tarefaRequest, idCategoria);
 	}
 
-	@PutMapping("/{id}")
-	public TarefaDto putTarefa(@PathVariable Long id, @RequestBody TarefaDto tarefaRequest) {
-		return tarefaService.putTarefa(id, tarefaRequest);
-	}
+//	@PutMapping("/{id}")
+//	public TarefaDto putTarefa(@PathVariable Long id, @RequestBody TarefaDto tarefaRequest) {
+//		return tarefaService.putTarefa(id, tarefaRequest);
+//	}
 
 	@DeleteMapping("/{id}")
 	public void deleteTarefa(@PathVariable Long id) {

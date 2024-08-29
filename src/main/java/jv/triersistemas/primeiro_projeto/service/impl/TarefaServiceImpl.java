@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jv.triersistemas.primeiro_projeto.dto.TarefaDto;
+import jv.triersistemas.primeiro_projeto.entity.CategoriaEntity;
 import jv.triersistemas.primeiro_projeto.entity.TarefaEntity;
 import jv.triersistemas.primeiro_projeto.repository.TarefaRepository;
 import jv.triersistemas.primeiro_projeto.service.TarefaService;
@@ -30,8 +31,11 @@ public class TarefaServiceImpl implements TarefaService {
 	}
 
 	@Override
-	public TarefaDto postTarefa(TarefaDto tarefaRequest) {
-		TarefaEntity tarefaAdicionada = tarefaRepository.save(new TarefaEntity(tarefaRequest));
+	public TarefaDto postTarefa(TarefaDto tarefaRequest, Long idCategoria) {
+		tarefaRepository.findById(idCategoria);
+		Optional<TarefaEntity> entityCategoria = tarefaRepository.findById(idCategoria);
+		CategoriaEntity categoriaMapeada = entityCategoria.stream().map(CategoriaEntity::new);
+		TarefaEntity tarefaAdicionada = tarefaRepository.save(new TarefaEntity(tarefaRequest, categoriaMapeada));
 		return new TarefaDto(tarefaAdicionada);
 	}
 
@@ -44,6 +48,7 @@ public class TarefaServiceImpl implements TarefaService {
 			tarefa.setTitulo(tarefaRequest.getTitulo());
 			tarefa.setDescricao(tarefaRequest.getDescricao());
 			tarefa.setCompleta(tarefaRequest.getCompleta());
+//			tarefaRequest.setCategoria(idCategoria);
 			tarefaRepository.save(tarefa);
 			return new TarefaDto(tarefa);
 		}

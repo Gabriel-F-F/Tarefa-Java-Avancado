@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import jv.triersistemas.primeiro_projeto.dto.TarefaDto;
+import jv.triersistemas.primeiro_projeto.entity.CategoriaEntity;
 
 public interface TarefaService {
 	
@@ -13,7 +14,7 @@ public interface TarefaService {
 	
 	TarefaDto putTarefa(Long id, TarefaDto tarefaRequest);
 
-	TarefaDto postTarefa(TarefaDto tarefaRequest);
+	TarefaDto postTarefa(TarefaDto tarefaRequest, CategoriaEntity id);
 	
 	void deleteTarefa(Long id);
 		

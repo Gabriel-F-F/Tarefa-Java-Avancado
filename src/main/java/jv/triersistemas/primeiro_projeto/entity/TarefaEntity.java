@@ -33,10 +33,11 @@ public class TarefaEntity {
 	@JoinColumn(name = "categoria_id", nullable = false)
 	private CategoriaEntity categoria;
 	
-	public TarefaEntity(TarefaDto dto) {
-		this.id = dto.getId();
-		this.titulo = dto.getTitulo();
-		this.descricao = dto.getDescricao();
-		this.completa = dto.getCompleta();
+	public TarefaEntity(TarefaDto dtoTarefa, CategoriaEntity entityCategoria) {
+		this.id = dtoTarefa.getId();
+		this.titulo = dtoTarefa.getTitulo();
+		this.descricao = dtoTarefa.getDescricao();
+		this.completa = dtoTarefa.getCompleta();
+		this.categoria = entityCategoria;
 	}
 }
